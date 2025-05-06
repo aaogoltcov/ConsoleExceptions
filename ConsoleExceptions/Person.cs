@@ -49,6 +49,10 @@ public class Person(string name, string surname, string middleName, DateTime bir
             {
                 Console.WriteLine("Error: " + e.Message);
             }
+            catch (IOException e)
+            {
+                Console.WriteLine("Error: " + e.Message);
+            }
         }
     }
 
@@ -105,7 +109,7 @@ public class Person(string name, string surname, string middleName, DateTime bir
             var filename = person._surname + ".txt";
 
             var streamWriter = File.Open(filename, FileMode.Append);
-            var bytes = Encoding.UTF8.GetBytes(person.ToString());
+            var bytes = Encoding.UTF8.GetBytes("\n" + person.ToString());
 
             streamWriter.Write(bytes);
             streamWriter.Close();
