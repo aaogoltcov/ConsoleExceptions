@@ -14,7 +14,8 @@ public class Person(string name, string surname, string middleName, DateTime bir
 
     public override string ToString()
     {
-        return $"Name: {_name} Surname: {_surname} MiddleName: {_middleName} Birthday: {_birthday.ToShortDateString()} Phone: {_phone} Gender: {_gender}";
+        return
+            $"Name: {_name} Surname: {_surname} MiddleName: {_middleName} Birthday: {_birthday.ToShortDateString()} Phone: {_phone} Gender: {_gender}";
     }
     
     
@@ -84,7 +85,9 @@ public class Person(string name, string surname, string middleName, DateTime bir
     
     private static long GetPhone(string phone)
     {
-        return long.TryParse(phone, out var phoneLong) ? phoneLong : throw new ArgumentException("Неверный формат номера телефона");
+        return long.TryParse(phone, out var phoneLong)
+            ? phoneLong
+            : throw new ArgumentException("Неверный формат номера телефона");
     }
     
     private static PersonGender GetGender(string gender)
