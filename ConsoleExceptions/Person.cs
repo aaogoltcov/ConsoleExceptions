@@ -17,8 +17,6 @@ public class Person(string name, string surname, string middleName, DateTime bir
         return
             $"Name: {_name} Surname: {_surname} MiddleName: {_middleName} Birthday: {_birthday.ToShortDateString()} Phone: {_phone} Gender: {_gender}";
     }
-    
-    
 
     public static void FillPerson()
     {
@@ -38,9 +36,9 @@ public class Person(string name, string surname, string middleName, DateTime bir
             {
                 var personData = GetPersonData(input);
                 var person = GetPerson(personData);
-                
+
                 SerializePersonToFile(person);
-            
+
                 Console.WriteLine($"Person: {person}");
             }
             catch (ArgumentException e)
@@ -82,14 +80,14 @@ public class Person(string name, string surname, string middleName, DateTime bir
             throw new FormatException("Неверный формат даты рождения", e);
         }
     }
-    
+
     private static long GetPhone(string phone)
     {
         return long.TryParse(phone, out var phoneLong)
             ? phoneLong
             : throw new ArgumentException("Неверный формат номера телефона");
     }
-    
+
     private static PersonGender GetGender(string gender)
     {
         return gender switch
@@ -99,7 +97,7 @@ public class Person(string name, string surname, string middleName, DateTime bir
             _ => throw new ArgumentException("Неверный формат пола")
         };
     }
-    
+
     private static void SerializePersonToFile(Person person)
     {
         try
@@ -108,10 +106,10 @@ public class Person(string name, string surname, string middleName, DateTime bir
 
             var streamWriter = File.Open(filename, FileMode.Append);
             var bytes = Encoding.UTF8.GetBytes(person.ToString());
-        
+
             streamWriter.Write(bytes);
             streamWriter.Close();
-        
+
             Console.WriteLine("Файл записан.");
         }
         catch (IOException e)
@@ -123,7 +121,7 @@ public class Person(string name, string surname, string middleName, DateTime bir
     private static Person GetPerson(string[] personData)
     {
         var checkedPersonData = CheckPersonData(personData);
-    
+
         var surname = checkedPersonData[0];
         var name = checkedPersonData[1];
         var middleName = checkedPersonData[2];
@@ -132,11 +130,11 @@ public class Person(string name, string surname, string middleName, DateTime bir
         {
             throw new ArgumentException("Неверный формат ФИО");
         }
-        
+
         var dateTime = GetDateTime(checkedPersonData[3]);
         var phone = GetPhone(checkedPersonData[4]);
         var gender = GetGender(checkedPersonData[5]);
-        
+
         return new Person(name, surname, middleName, dateTime, phone, gender);
     }
 }
